@@ -48,3 +48,14 @@ export async function fetchCollection(resourceName) {
   const payload = await response.json();
   return normalizeListResponse(payload);
 }
+
+export async function fetchCollectionByUrl(url, resourceLabel = 'resource') {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Request failed for ${resourceLabel}: ${response.status}`);
+  }
+
+  const payload = await response.json();
+  return normalizeListResponse(payload);
+}
