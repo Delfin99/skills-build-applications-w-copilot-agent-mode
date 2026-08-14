@@ -30,3 +30,27 @@ If you are developing a production application, we recommend enabling type-aware
 ```
 
 See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+
+## Environment Configuration
+
+The presentation tier uses Vite environment variables from `import.meta.env`.
+
+Define `VITE_CODESPACE_NAME` (for example in `.env.local`) so the frontend can call the Codespaces API URL:
+
+```bash
+VITE_CODESPACE_NAME=your-codespace-name
+```
+
+The app builds endpoint URLs like:
+
+```text
+https://${VITE_CODESPACE_NAME}-8000.app.github.dev/api/<component>/
+```
+
+If `VITE_CODESPACE_NAME` is unset, the app falls back to:
+
+```text
+http://localhost:8000/api/<component>/
+```
+
+This avoids invalid `https://undefined-8000...` requests during local development.
